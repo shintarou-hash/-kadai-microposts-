@@ -3,12 +3,15 @@ class SessionsController < ApplicationController
   end
 
   def create
+    #email、passwordを小文字化して取得
     email = params[:session][:email].downcase
     password = params[:session][:password]
     if login(email, password)
+      #users#show へとリダイレクト
       flash[:success] = 'ログインに成功しました'
       redirect_to @user
     else
+      #sessions/new.html.erb を再表示
       flash.now[:danger] = 'ログインに失敗しました'
       render:new
     end
